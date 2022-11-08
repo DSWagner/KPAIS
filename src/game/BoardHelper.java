@@ -94,14 +94,8 @@ public class BoardHelper {
         return result;
     }
 
-    public static ArrayList<Point> getReversePoints(int[][] board,int player,int i,int j){
-
-        ArrayList<Point> allReversePoints = new ArrayList<>();
-
-        int mi , mj , c;
-        int oplayer = ((player == 1) ? 2 : 1);
-
-        //move up
+    public static void moveUp(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mupts = new ArrayList<>();
         mi = i - 1;
         mj = j;
@@ -112,9 +106,10 @@ public class BoardHelper {
         if(mi>=0 && board[mi][mj] == player && mupts.size()>0){
             allReversePoints.addAll(mupts);
         }
+    }
 
-
-        //move down
+    public static void moveDown(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mdpts = new ArrayList<>();
         mi = i + 1;
         mj = j;
@@ -125,8 +120,10 @@ public class BoardHelper {
         if(mi<=7 && board[mi][mj] == player && mdpts.size()>0){
             allReversePoints.addAll(mdpts);
         }
+    }
 
-        //move left
+    public static void moveLeft(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mlpts = new ArrayList<>();
         mi = i;
         mj = j - 1;
@@ -137,8 +134,10 @@ public class BoardHelper {
         if(mj>=0 && board[mi][mj] == player && mlpts.size()>0){
             allReversePoints.addAll(mlpts);
         }
+    }
 
-        //move right
+    public static void moveRight(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mrpts = new ArrayList<>();
         mi = i;
         mj = j + 1;
@@ -149,8 +148,10 @@ public class BoardHelper {
         if(mj<=7 && board[mi][mj] == player && mrpts.size()>0){
             allReversePoints.addAll(mrpts);
         }
+    }
 
-        //move up left
+    public static void moveUpLeft(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mulpts = new ArrayList<>();
         mi = i - 1;
         mj = j - 1;
@@ -162,8 +163,10 @@ public class BoardHelper {
         if(mi>=0 && mj>=0 && board[mi][mj] == player && mulpts.size()>0){
             allReversePoints.addAll(mulpts);
         }
+    }
 
-        //move up right
+    public static void moveUpRight(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> murpts = new ArrayList<>();
         mi = i - 1;
         mj = j + 1;
@@ -175,8 +178,10 @@ public class BoardHelper {
         if(mi>=0 && mj<=7 && board[mi][mj] == player && murpts.size()>0){
             allReversePoints.addAll(murpts);
         }
+    }
 
-        //move down left
+    public static void moveDownLeft(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mdlpts = new ArrayList<>();
         mi = i + 1;
         mj = j - 1;
@@ -188,8 +193,10 @@ public class BoardHelper {
         if(mi<=7 && mj>=0 && board[mi][mj] == player && mdlpts.size()>0){
             allReversePoints.addAll(mdlpts);
         }
+    }
 
-        //move down right
+    public static void moveDownRight(int[][] board,int player, int oplayer ,int i,int j, ArrayList<Point> allReversePoints) {
+        int mi , mj;
         ArrayList<Point> mdrpts = new ArrayList<>();
         mi = i + 1;
         mj = j + 1;
@@ -201,8 +208,148 @@ public class BoardHelper {
         if(mi<=7 && mj<=7 && board[mi][mj] == player && mdrpts.size()>0){
             allReversePoints.addAll(mdrpts);
         }
+    }
+
+    public static ArrayList<Point> getReversePoints(int[][] board,int player,int i,int j){
+
+        ArrayList<Point> allReversePoints = new ArrayList<>();
+
+        int mi , mj , c;
+        int oplayer = ((player == 1) ? 2 : 1);
+
+        //move up
+        moveUp(board, player, oplayer, i, j, allReversePoints);
+
+        //move down
+        moveDown(board, player, oplayer, i, j, allReversePoints);
+
+        //move left
+        moveLeft(board, player, oplayer, i, j, allReversePoints);
+
+        //move right
+        moveRight(board, player, oplayer, i, j, allReversePoints);
+
+        //move up left
+        moveUpLeft(board, player, oplayer, i, j, allReversePoints);
+
+        //move up right
+        moveUpRight(board, player, oplayer, i, j, allReversePoints);
+
+        //move down left
+        moveDownLeft(board, player, oplayer, i, j, allReversePoints);
+
+        //move down right
+        moveDownRight(board, player, oplayer, i, j, allReversePoints);
 
         return allReversePoints;
+    }
+
+    private static boolean moveUp(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i - 1;
+        mj = j;
+        c = 0;
+        while(mi>0 && board[mi][mj] == oplayer){
+            mi--;
+            c++;
+        }
+        if(mi>=0 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveDown(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i + 1;
+        mj = j;
+        c = 0;
+        while(mi<7 && board[mi][mj] == oplayer){
+            mi++;
+            c++;
+        }
+        if(mi<=7 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveLeft(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i;
+        mj = j - 1;
+        c = 0;
+        while(mj>0 && board[mi][mj] == oplayer){
+            mj--;
+            c++;
+        }
+        if(mj>=0 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveRight(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i;
+        mj = j + 1;
+        c = 0;
+        while(mj<7 && board[mi][mj] == oplayer){
+            mj++;
+            c++;
+        }
+        if(mj<=7 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveUpLeft(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i - 1;
+        mj = j - 1;
+        c = 0;
+        while(mi>0 && mj>0 && board[mi][mj] == oplayer){
+            mi--;
+            mj--;
+            c++;
+        }
+        if(mi>=0 && mj>=0 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveUpRight(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i - 1;
+        mj = j + 1;
+        c = 0;
+        while(mi>0 && mj<7 && board[mi][mj] == oplayer){
+            mi--;
+            mj++;
+            c++;
+        }
+        if(mi>=0 && mj<=7 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveDownLeft(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i + 1;
+        mj = j - 1;
+        c = 0;
+        while(mi<7 && mj>0 && board[mi][mj] == oplayer){
+            mi++;
+            mj--;
+            c++;
+        }
+        if(mi<=7 && mj>=0 && board[mi][mj] == player && c>0) return true;
+        else return false;
+    }
+
+    private static boolean moveDownRight(int[][] board,int player,int oplayer,int i,int j) {
+        int mi , mj , c;
+        mi = i + 1;
+        mj = j + 1;
+        c = 0;
+        while(mi<7 && mj<7 && board[mi][mj] == oplayer){
+            mi++;
+            mj++;
+            c++;
+        }
+        if(mi<=7 && mj<=7 && board[mi][mj] == player && c>0) return true;
+        else return false;
     }
 
     public static boolean canPlay(int[][] board,int player,int i,int j){
@@ -213,89 +360,28 @@ public class BoardHelper {
         int oplayer = ((player == 1) ? 2 : 1);
 
         //move up
-        mi = i - 1;
-        mj = j;
-        c = 0;
-        while(mi>0 && board[mi][mj] == oplayer){
-            mi--;
-            c++;
-        }
-        if(mi>=0 && board[mi][mj] == player && c>0) return true;
-
+        if(moveUp(board, player, oplayer, i, j)) return true;
 
         //move down
-        mi = i + 1;
-        mj = j;
-        c = 0;
-        while(mi<7 && board[mi][mj] == oplayer){
-            mi++;
-            c++;
-        }
-        if(mi<=7 && board[mi][mj] == player && c>0) return true;
+        if(moveDown(board, player, oplayer, i, j)) return true;
 
         //move left
-        mi = i;
-        mj = j - 1;
-        c = 0;
-        while(mj>0 && board[mi][mj] == oplayer){
-            mj--;
-            c++;
-        }
-        if(mj>=0 && board[mi][mj] == player && c>0) return true;
+        if(moveLeft(board, player, oplayer, i, j)) return true;
 
         //move right
-        mi = i;
-        mj = j + 1;
-        c = 0;
-        while(mj<7 && board[mi][mj] == oplayer){
-            mj++;
-            c++;
-        }
-        if(mj<=7 && board[mi][mj] == player && c>0) return true;
+        if(moveRight(board, player, oplayer, i, j)) return true;
 
         //move up left
-        mi = i - 1;
-        mj = j - 1;
-        c = 0;
-        while(mi>0 && mj>0 && board[mi][mj] == oplayer){
-            mi--;
-            mj--;
-            c++;
-        }
-        if(mi>=0 && mj>=0 && board[mi][mj] == player && c>0) return true;
+        if(moveUpLeft(board, player, oplayer, i, j)) return true;
 
         //move up right
-        mi = i - 1;
-        mj = j + 1;
-        c = 0;
-        while(mi>0 && mj<7 && board[mi][mj] == oplayer){
-            mi--;
-            mj++;
-            c++;
-        }
-        if(mi>=0 && mj<=7 && board[mi][mj] == player && c>0) return true;
+        if(moveUpRight(board, player, oplayer, i, j)) return true;
 
         //move down left
-        mi = i + 1;
-        mj = j - 1;
-        c = 0;
-        while(mi<7 && mj>0 && board[mi][mj] == oplayer){
-            mi++;
-            mj--;
-            c++;
-        }
-        if(mi<=7 && mj>=0 && board[mi][mj] == player && c>0) return true;
+        if(moveDownLeft(board, player, oplayer, i, j)) return true;
 
         //move down right
-        mi = i + 1;
-        mj = j + 1;
-        c = 0;
-        while(mi<7 && mj<7 && board[mi][mj] == oplayer){
-            mi++;
-            mj++;
-            c++;
-        }
-        if(mi<=7 && mj<=7 && board[mi][mj] == player && c>0) return true;
+        if(moveDownRight(board, player, oplayer, i, j)) return true;
 
         //when all hopes fade away
         return false;
@@ -321,6 +407,127 @@ public class BoardHelper {
         return newboard;
     }
 
+    private static void addStableDisc(ArrayList<Point> stableDiscs, ArrayList<Point> pts) {
+        for(Point sd : pts){
+            boolean redundant = false;
+            for(Point stableDisc : stableDiscs){
+                if(sd.equals(stableDisc)){
+                    redundant = true;
+                    break;
+                }
+            }
+            if(!redundant) stableDiscs.add(sd);
+        }
+    }
+
+    private static void moveUp(int[][] board,int player ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mupts = new ArrayList<>();
+        int mi, mj;
+        mi = i - 1;
+        mj = j;
+        while(mi>0 && board[mi][mj] == player){
+            mupts.add(new Point(mi,mj));
+            mi--;
+        }
+
+        addStableDisc(stableDiscs, mupts);
+    }
+
+    private static void moveDown(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mdpts = new ArrayList<>();
+        int mi, mj;
+        mi = i + 1;
+        mj = j;
+        while(mi<7 && board[mi][mj] == oplayer){
+            mdpts.add(new Point(mi,mj));
+            mi++;
+        }
+
+        addStableDisc(stableDiscs, mdpts);
+    }
+
+    private static void moveLeft(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mlpts = new ArrayList<>();
+        int mi, mj;
+        mi = i;
+        mj = j - 1;
+        while(mj>0 && board[mi][mj] == oplayer){
+            mlpts.add(new Point(mi,mj));
+            mj--;
+        }
+
+        addStableDisc(stableDiscs, mlpts);
+    }
+
+    private static void moveRight(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mrpts = new ArrayList<>();
+        int mi, mj;
+        mi = i;
+        mj = j + 1;
+        while(mj<7 && board[mi][mj] == oplayer){
+            mrpts.add(new Point(mi,mj));
+            mj++;
+        }
+
+        addStableDisc(stableDiscs, mrpts);
+    }
+
+    private static void moveUpLeft(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mulpts = new ArrayList<>();
+        int mi, mj;
+        mi = i - 1;
+        mj = j - 1;
+        while(mi>0 && mj>0 && board[mi][mj] == oplayer){
+            mulpts.add(new Point(mi,mj));
+            mi--;
+            mj--;
+        }
+
+        addStableDisc(stableDiscs, mulpts);
+    }
+
+    private static void moveUpRight(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> murpts = new ArrayList<>();
+        int mi, mj;
+        mi = i - 1;
+        mj = j + 1;
+        while(mi>0 && mj<7 && board[mi][mj] == oplayer){
+            murpts.add(new Point(mi,mj));
+            mi--;
+            mj++;
+        }
+
+        addStableDisc(stableDiscs, murpts);
+    }
+
+    private static void moveDownLeft(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mdlpts = new ArrayList<>();
+        int mi, mj;
+        mi = i + 1;
+        mj = j - 1;
+        while(mi<7 && mj>0 && board[mi][mj] == oplayer){
+            mdlpts.add(new Point(mi,mj));
+            mi++;
+            mj--;
+        }
+
+        addStableDisc(stableDiscs, mdlpts);
+    }
+
+    private static void moveDownRight(int[][] board,int oplayer ,int i, int j, ArrayList<Point> stableDiscs) {
+        ArrayList<Point> mdrpts = new ArrayList<>();
+        int mi, mj;
+        mi = i + 1;
+        mj = j + 1;
+        while(mi<7 && mj<7 && board[mi][mj] == oplayer){
+            mdrpts.add(new Point(mi,mj));
+            mi++;
+            mj++;
+        }
+
+        addStableDisc(stableDiscs, mdrpts);
+    }
+
     public static ArrayList<Point> getStableDisks(int[][] board,int player,int i,int j){
 
         ArrayList<Point> stableDiscs = new ArrayList<>();
@@ -329,164 +536,65 @@ public class BoardHelper {
         int oplayer = ((player == 1) ? 2 : 1);
 
         //move up
-        ArrayList<Point> mupts = new ArrayList<>();
-        mi = i - 1;
-        mj = j;
-        while(mi>0 && board[mi][mj] == player){
-            mupts.add(new Point(mi,mj));
-            mi--;
-        }
-        for(Point sd : mupts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveUp(board, player, i, j, stableDiscs);
 
         //move down
-        ArrayList<Point> mdpts = new ArrayList<>();
-        mi = i + 1;
-        mj = j;
-        while(mi<7 && board[mi][mj] == oplayer){
-            mdpts.add(new Point(mi,mj));
-            mi++;
-        }
-        for(Point sd : mdpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveDown(board, oplayer, i, j, stableDiscs);
 
         //move left
-        ArrayList<Point> mlpts = new ArrayList<>();
-        mi = i;
-        mj = j - 1;
-        while(mj>0 && board[mi][mj] == oplayer){
-            mlpts.add(new Point(mi,mj));
-            mj--;
-        }
-        for(Point sd : mlpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveLeft(board, oplayer, i, j, stableDiscs);
 
         //move right
-        ArrayList<Point> mrpts = new ArrayList<>();
-        mi = i;
-        mj = j + 1;
-        while(mj<7 && board[mi][mj] == oplayer){
-            mrpts.add(new Point(mi,mj));
-            mj++;
-        }
-        for(Point sd : mrpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveRight(board, oplayer, i, j, stableDiscs);
 
         //move up left
-        ArrayList<Point> mulpts = new ArrayList<>();
-        mi = i - 1;
-        mj = j - 1;
-        while(mi>0 && mj>0 && board[mi][mj] == oplayer){
-            mulpts.add(new Point(mi,mj));
-            mi--;
-            mj--;
-        }
-        for(Point sd : mulpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveUpLeft(board, oplayer, i, j, stableDiscs);
 
         //move up right
-        ArrayList<Point> murpts = new ArrayList<>();
-        mi = i - 1;
-        mj = j + 1;
-        while(mi>0 && mj<7 && board[mi][mj] == oplayer){
-            murpts.add(new Point(mi,mj));
-            mi--;
-            mj++;
-        }
-        for(Point sd : murpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveUpRight(board, oplayer, i, j, stableDiscs);
 
         //move down left
-        ArrayList<Point> mdlpts = new ArrayList<>();
-        mi = i + 1;
-        mj = j - 1;
-        while(mi<7 && mj>0 && board[mi][mj] == oplayer){
-            mdlpts.add(new Point(mi,mj));
-            mi++;
-            mj--;
-        }
-        for(Point sd : mdlpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveDownLeft(board, oplayer, i, j, stableDiscs);
 
         //move down right
-        ArrayList<Point> mdrpts = new ArrayList<>();
-        mi = i + 1;
-        mj = j + 1;
-        while(mi<7 && mj<7 && board[mi][mj] == oplayer){
-            mdrpts.add(new Point(mi,mj));
-            mi++;
-            mj++;
-        }
-        for(Point sd : mdrpts){
-            boolean redundant = false;
-            for(Point stableDisc : stableDiscs){
-                if(sd.equals(stableDisc)){
-                    redundant = true;
-                    break;
-                }
-            }
-            if(!redundant) stableDiscs.add(sd);
-        }
+        moveDownRight(board, oplayer, i, j, stableDiscs);
 
         return stableDiscs;
     }
 
+
+    private static void upPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //up
+        if (i > 0 && board[i - 1][j] == 0) possiblefrontiers.add(new Point(i - 1, j));
+    }
+    private static void downPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //down
+        if (i < 7 && board[i + 1][j] == 0) possiblefrontiers.add(new Point(i + 1, j));
+    }
+    private static void rightPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //right
+        if (j < 7 && board[i][j + 1] == 0) possiblefrontiers.add(new Point(i, j + 1));
+    }
+    private static void leftPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //left
+        if (j > 0 && board[i][j - 1] == 0) possiblefrontiers.add(new Point(i, j - 1));
+    }
+    private static void upLeftPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //up-left
+        if (i > 0 && j > 0 && board[i - 1][j - 1] == 0) possiblefrontiers.add(new Point(i - 1, j - 1));
+    }
+    private static void upRightPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //up-right
+        if (i > 0 && j < 7 && board[i - 1][j + 1] == 0) possiblefrontiers.add(new Point(i - 1, j + 1));
+    }
+    private static void downLeftPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //down-left
+        if (i < 7 && j > 0 && board[i + 1][j - 1] == 0) possiblefrontiers.add(new Point(i + 1, j - 1));
+    }
+    private static void downRightPossibleFrontier(int[][] board, int i, int j, ArrayList<Point> possiblefrontiers) {
+        //down-right
+        if(i<7 && j<7 && board[i+1][j+1]==0) possiblefrontiers.add(new Point(i+1,j+1));
+    }
 
     public static ArrayList<Point> getFrontierSquares(int[][] board,int player){
 
@@ -501,35 +609,23 @@ public class BoardHelper {
                     ArrayList<Point> possiblefrontiers = new ArrayList<>();
 
                     //check 8 directions
-
                     //up
-                    if(i>0 && board[i-1][j]==0) possiblefrontiers.add(new Point(i-1,j));
+                    upPossibleFrontier(board, i, j, possiblefrontiers);
                     //down
-                    if(i<7 && board[i+1][j]==0) possiblefrontiers.add(new Point(i+1,j));
-                    //right
-                    if(j<7 && board[i][j+1]==0) possiblefrontiers.add(new Point(i,j+1));
+                    downPossibleFrontier(board, i, j, possiblefrontiers);
                     //left
-                    if(j>0 && board[i][j-1]==0) possiblefrontiers.add(new Point(i,j-1));
+                    leftPossibleFrontier(board, i, j, possiblefrontiers);
+                    //right
+                    rightPossibleFrontier(board, i, j, possiblefrontiers);
                     //up-left
-                    if(i>0 && j>0 && board[i-1][j-1]==0) possiblefrontiers.add(new Point(i-1,j-1));
+                    upLeftPossibleFrontier(board, i, j, possiblefrontiers);
                     //up-right
-                    if(i>0 && j<7 && board[i-1][j+1]==0) possiblefrontiers.add(new Point(i-1,j+1));
+                    upRightPossibleFrontier(board, i, j, possiblefrontiers);
                     //down-left
-                    if(i<7 && j>0 && board[i+1][j-1]==0) possiblefrontiers.add(new Point(i+1,j-1));
+                    downLeftPossibleFrontier(board, i, j, possiblefrontiers);
                     //down-right
-                    if(i<7 && j<7 && board[i+1][j+1]==0) possiblefrontiers.add(new Point(i+1,j+1));
-
-                    //remove duplicates
-                    for(Point pf : possiblefrontiers){
-                        boolean redundant = false;
-                        for(Point f : frontiers){
-                            if(f.equals(pf)){
-                                redundant = true;
-                                break;
-                            }
-                        }
-                        if(!redundant) frontiers.add(pf);
-                    }
+                    downRightPossibleFrontier(board, i, j, possiblefrontiers);
+                    addStableDisc(frontiers, possiblefrontiers);
                 }
             }
         }
